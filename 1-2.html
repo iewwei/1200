@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1-2 新打开窗口</title>
+</head>
+<body>
+	<h1 id="txt">新打开窗口</h1>
+	<p id="messageInfo"></p>
+	<script> 
+var oM = document.getElementById("messageInfo");
+window.addEventListener('message',function(e) {
+	oM.innerHTML+='YOU：'+e.data+'<br>';
+	alert(e.origin)
+	e.source.postMessage("我是新窗口，收到你的信息了",e.origin)
+},false);
+window.addEventListener('unload',function(e){
+	alert(e.origin)
+	e.source.postMessage("我是新窗口，我先关了","http://example1.k.com:3000/1.html")
+},)
+</script>
+</body>
+</html>

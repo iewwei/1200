@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1-1 iframe页面</title>
+</head>
+<body>
+
+	<h1 id="txt">iframe内嵌页面</h1>
+	<p id="messageInfo"></p>
+	<script> 
+document.domain='k.com'
+var oM = document.getElementById("messageInfo");
+
+window.addEventListener('message',function(e) { 
+	// if (event.origin !== "http://myorigin"){
+	// return
+	// }
+	/*何窗口可以在任何其他窗口访问此方法，在任何时间，无论文档在窗口中的位置，向其发送消息。 因此，用于接收消息的任何事件监听器必须首先使用origin和source属性来检查消息的发送者的身份
+	*/
+	oM.innerHTML+='YOU：'+e.data+'<br>';
+	// 假设你已经验证了所受到信息的origin , 一个很方便的方式就是把enent.source
+ 	// 作为回信的对象，并且把event.origin作为targetOrigin
+	setTimeout(function(){
+		e.source.postMessage("我收到你的消息了",e.origin)
+	},1000)
+},false);
+
+</script>
+</body>
+</html>
